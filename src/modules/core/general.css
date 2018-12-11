@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+body {
+  margin: 10px;
+  font-family: 'Lobster', '標楷體', 'serif' !important;
+}
+input.form-control {
+  margin-bottom: 10px;
+}
+.disable
+{
+    cursor: not-allowed;
+}
+
+.disable > * 
+{
+    pointer-events:none;
+}
