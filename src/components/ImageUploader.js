@@ -46,8 +46,20 @@ class ImageUploader extends Component {
         {!url ||
           (url !== '' && (
             <DraggableImage imgIndex={imgIndex} onSwitch={onSwitch}>
-              <div className="d-flex" style={{ minHeight: '25vw', justifyContent: 'center', alignItems: 'center' }}>
-                <img className="img-fluid" src={url} alt="img" />
+              <div
+                className="d-flex"
+                style={{
+                  height: '200px',
+                  overflow: 'hidden',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                <img
+                  className="img-fluid"
+                  src={url}
+                  alt="img"
+                  style={{ height: 'auto', width: '100%' }}
+                />
               </div>
             </DraggableImage>
           ))}

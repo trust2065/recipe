@@ -14,11 +14,9 @@ export default class HistoryBox extends Component {
 
     return (
       <div>
+        <p>{date}</p>
         <ImageBox images={images}>
           <div className="row mt-4">
-            <div className="col-sm-8">
-              <p>{date}</p>
-            </div>
             <div className="col-sm ml-auto">
               {historyId && (
                 <Link to={`/recipe/${recipeId}/history/${historyId}`}>

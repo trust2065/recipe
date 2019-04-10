@@ -29,7 +29,7 @@ const defaultState = {
     updated: false,
     uploading: false,
     error: '',
-    uploadingImgIndexs: {}
+    uploadingImgIndexes: {}
   }
 };
 
@@ -232,10 +232,10 @@ const imgUploaderAddHandler = (state, action) => {
 const imgUploadPendingHandler = (state, action) => {
   const { imgIndex } = action.payload;
 
-  state = dotProp.merge(state, `meta.uploadingImgIndexs`, {
+  state = dotProp.merge(state, `meta.uploadingImgIndexes`, {
     [imgIndex]: true
   });
-  console.log(JSON.stringify(state.meta.uploadingImgIndexs));
+  console.log(JSON.stringify(state.meta.uploadingImgIndexes));
   return state;
 };
 const imageDeleteHandler = (state, action) => {
@@ -400,15 +400,15 @@ const metaReducer = handleActions(
     [imgUploadFulfill]: (state, { payload }) => {
       const { imgIndex } = payload;
       if (imgIndex >= 0) {
-        state = dotProp.delete(state, `uploadingImgIndexs.${imgIndex}`);
-        console.log(JSON.stringify(state.uploadingImgIndexs));
+        state = dotProp.delete(state, `uploadingImgIndexes.${imgIndex}`);
+        console.log(JSON.stringify(state.uploadingImgIndexes));
         return state;
       }
     },
     [combineActions(imgUploadReject, imgUploadCancel)](state, { payload }) {
       const { imgIndex } = payload;
       if (imgIndex) {
-        state = dotProp.delete(state, `uploadingImgIndexs.${imgIndex}`);
+        state = dotProp.delete(state, `uploadingImgIndexes.${imgIndex}`);
       }
       return dotProp.set(state, 'uploading', false);
     },

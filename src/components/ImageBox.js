@@ -68,23 +68,28 @@ export default class ImageBox extends Component {
     const hasRightImage = this.hasImage(right, imageIndex);
 
     return (
-      <div className="container-fluid">
-        <div className="row">
+      <div className="container-fluid imageBox">
+        <div
+          className="row mt-2 d-flex align-items-center justify-content-center imageBox_image"
+          style={{ height: '200px', overflow: 'hidden' }}>
+          <img
+            style={{ height: 'auto', width: '100%' }}
+            className="img-fluid"
+            src={url}
+            alt="record"
+          />
           <button
             disabled={!hasLeftImage}
-            className="btn mr-auto"
+            className="btn mr-auto imageBox_btn imageBox_btn__left"
             onClick={() => this.onImageIndexChange(left)}>
             &#8592;
           </button>
           <button
             disabled={!hasRightImage}
-            className="btn ml-auto"
+            className="btn ml-auto imageBox_btn imageBox_btn__right"
             onClick={() => this.onImageIndexChange(right)}>
             &#8594;
           </button>
-        </div>
-        <div className="row mt-2 d-flex align-items-center justify-content-center" style={{ height: '25vw' }}>
-            <img style={{maxHeight: '100%', maxWidth: '100%'}} className="img-fluid" src={url} alt="record" />
         </div>
         {this.props.children}
       </div>

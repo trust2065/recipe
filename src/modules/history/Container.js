@@ -34,11 +34,11 @@ const History = connect(store => {
       const name = _.get(this.props, 'name', '');
       const showRemark = _.get(this.state, 'showRemark', true);
 
-      const historyBoxs = [];
+      const historyBoxes = [];
 
       histories &&
         histories.forEach((history, i) => {
-          historyBoxs.push(
+          historyBoxes.push(
             <div key={`historyImage_${i}`} className="col-sm-4">
               <HistoryBox
                 recipeId={recipeId}
@@ -86,7 +86,7 @@ const History = connect(store => {
               )}
             </div>
           </div>
-          <div className="row mt-5">{historyBoxs}</div>
+          <div className="row mt-5">{historyBoxes}</div>
         </div>
       );
     }

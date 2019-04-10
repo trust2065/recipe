@@ -38,7 +38,7 @@ class Home extends Component {
       <div className="container">
         <div className="recipeActions">
           <Link to="/recipe/new">
-            <button>Create Recipe</button>
+            <button class="btn">Create Recipe</button>
           </Link>
         </div>
         <div className="table-responsive">

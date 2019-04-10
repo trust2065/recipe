@@ -9,7 +9,7 @@ class Header extends Component {
         <nav className="navbar">
           <div className="navbar-brand">
             <Link to="/">
-              <h2>{this.props.title}</h2>
+              <h1>{this.props.title}</h1>
             </Link>
           </div>
         </nav>

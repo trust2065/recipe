@@ -236,7 +236,9 @@ const Recipe = connect(store => {
               </form>
               {!imgURL ||
                 (imgURL !== '' && (
-                  <img className="img-fluid" src={imgURL} alt="img" />
+                  <div className="d-flex align-items-center justify-content-center">
+                    <img className="img-fluid" src={imgURL} alt="img" />
+                  </div>
                 ))}
             </div>
           </div>

@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './modules/core/general.css';
-import { Header } from './modules/core';
 import Home from './modules/home';
 import Recipe from './modules/recipe';
 import History from './modules/history';
@@ -15,15 +13,14 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import './modules/core/general.css';
+import { Header } from './modules/core';
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-        <Route
-          path="/"
-          render={() => <Header title="Site for Your Recipes" />}
-        />
+        <Route path="/" render={() => <Header title="Recipes & Records" />} />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/recipe/:id" component={Recipe} />

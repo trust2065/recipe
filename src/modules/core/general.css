@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lobster');
+/* @import url('https://fonts.googleapis.com/css?family=Lobster'); */
 
 body {
   margin: 10px;
@@ -15,4 +15,83 @@ input.form-control {
 .disable > * 
 {
     pointer-events:none;
+}
+
+.imageBox {
+  height: 400px;
+}
+
+.imageBox_image {
+  position: relative;
+}
+
+.imageBox_btn {
+  position: absolute;
+  top: calc(50%-19px);
+}
+
+.imageBox_btn__left {
+ left: 0; 
+}
+.imageBox_btn__right {
+ right: 0; 
+}
+
+.container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+
+#recipeTable_filter {
+  text-align: right
+}
+#recipeTable_filter input {
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.dataTables_length {
+  text-align: right
+}
+
+.recipeActions {
+  position: absolute;
+  top: 7.5rem;
+}
+.recipeActions button {
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-shadow: 5px;
+}
+#recipeTable_paginate {
+  text-align: center;
+}
+#recipeTable_paginate > * {
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+}
+#recipeTable_paginate > span > * {
+  padding: 10px;
+}
+#recipeTable_info {
+  display: none;
+}
+.table-responsive {
+  overflow: hidden;
+}
+
+#recipeTable_length select {
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.btn {
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 3px 3px #ccc;
 }

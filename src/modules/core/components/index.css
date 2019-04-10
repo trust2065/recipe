@@ -6,3 +6,10 @@ body {
 a:hover {
   text-decoration: none;
 }
+
+.navbar {
+  padding-left: 0;
+}
+.navbar-brand h1 {
+  font-weight: bolder;
+}
