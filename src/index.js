@@ -21,19 +21,21 @@ ReactDOM.render(
     <Router>
       <div>
         <Route path="/" render={() => <Header title="Recipes & Records" />} />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/recipe/:id" component={Recipe} />
-          <Route
-            exact
-            path="/recipe/:id/history/:historyId"
-            component={HistoryCreate}
-          />
-          <Route exact path="/recipe/:id/history" component={History} />
-          <Route>
-            <Redirect to="/" />
-          </Route>
-        </Switch>
+        <div className="mt-4">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/recipe/:id" component={Recipe} />
+            <Route
+              exact
+              path="/recipe/:id/history/:historyId"
+              component={HistoryCreate}
+            />
+            <Route exact path="/recipe/:id/history" component={History} />
+            <Route>
+              <Redirect to="/" />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </Router>
   </Provider>,

@@ -9,7 +9,12 @@ a:hover {
 
 .navbar {
   padding-left: 0;
+  border-bottom: 1px solid;
+  padding-bottom: .5rem;
+  background: #0e19a1;
+  justify-content: center;
 }
 .navbar-brand h1 {
   font-weight: bolder;
+  color: #eee;
 }

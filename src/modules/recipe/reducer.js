@@ -98,7 +98,7 @@ const {
   recipeFetchPending,
   recipeFetchFulfill,
   recipeFetchFulfillNewrecipe,
-  recipeFetctReject
+  recipeFetchReject
 } = createActions(
   {
     RECIPE_FETCH_FULFILL: (recipe, recipeId) => ({ recipe, recipeId })
@@ -136,7 +136,7 @@ export function recipeFetch(recipeId) {
         }
       },
       err => {
-        dispatch(recipeFetctReject(err));
+        dispatch(recipeFetchReject(err));
       }
     );
   };
@@ -177,6 +177,8 @@ export function recipeUpdate(recipeId, name, ingredients, steps, imgURL = '') {
 
 export const reset = createAction('RESET');
 
+export const changeIsEdit = createAction('CHANGE_ISEDIT');
+
 //=================
 // Default State
 //=================
@@ -195,7 +197,8 @@ const defaultState = {
     updating: false,
     updated: false,
     uploading: false,
-    error: ''
+    error: '',
+    isEdit: false
   }
 };
 
@@ -275,6 +278,9 @@ const dataReducer = handleActions(
 
 const metaReducer = handleActions(
   {
+    [changeIsEdit]: (state, { payload }) => {
+      return dotProp.set(state, 'isEdit', payload);
+    },
     [recipeFetchPending]: state => dotProp.set(state, 'fetching', true),
     [recipeUpdatePending]: (state, action) =>
       dotProp.set(state, 'updating', true),
@@ -304,7 +310,7 @@ const metaReducer = handleActions(
         fetched: true
       };
     },
-    [recipeFetctReject]: (state, action) => {
+    [recipeFetchReject]: (state, action) => {
       const error = action.payload;
       return {
         ...state,
@@ -327,11 +333,11 @@ const metaReducer = handleActions(
 
 const crossSliceReducer = handleActions({}, defaultState);
 
-const recipeRedcuer = combineReducers({
+const recipeReducer = combineReducers({
   data: dataReducer,
   meta: metaReducer
 });
 
-const reducer = reduceReducers(crossSliceReducer, recipeRedcuer);
+const reducer = reduceReducers(crossSliceReducer, recipeReducer);
 
 export default reducer;

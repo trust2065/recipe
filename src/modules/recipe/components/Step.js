@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from '../../../components';
+import { FaTimes } from 'react-icons/fa';
 
 class Step extends Component {
   render() {
@@ -21,7 +22,7 @@ class Step extends Component {
         />
         <div className="input-group-append">
           <Button onClick={this.props.onDelete} className="input-group-text">
-            X
+            <FaTimes />
           </Button>
         </div>
       </div>

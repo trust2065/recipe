@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import ImageBox from './ImageBox';
 import { Link } from 'react-router-dom';
+import { FaRegEdit } from 'react-icons/fa';
 
 export default class HistoryBox extends Component {
   render() {
@@ -14,17 +15,17 @@ export default class HistoryBox extends Component {
 
     return (
       <div>
-        <p>{date}</p>
+        <div className="d-flex justify-content-between">
+          <h4>{date}</h4>
+          {historyId && (
+            <Link to={`/recipe/${recipeId}/history/${historyId}`}>
+              <button className="btn">
+                <FaRegEdit />
+              </button>
+            </Link>
+          )}
+        </div>
         <ImageBox images={images}>
-          <div className="row mt-4">
-            <div className="col-sm ml-auto">
-              {historyId && (
-                <Link to={`/recipe/${recipeId}/history/${historyId}`}>
-                  <button className="btn btn-block">Edit</button>
-                </Link>
-              )}
-            </div>
-          </div>
           {showRemark && (
             <div className="row mt-2">
               <p>{remark}</p>

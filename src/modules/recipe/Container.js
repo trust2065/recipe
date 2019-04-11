@@ -5,6 +5,7 @@ import { Ingredient, Step } from './components';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  changeIsEdit,
   imgUpload,
   ingredientAdd,
   ingredientChange,
@@ -17,15 +18,24 @@ import {
   recipeUpdate,
   reset
 } from './reducer';
+import { FaPlus } from 'react-icons/fa';
 
 // let recipeId;
 const Recipe = connect(store => {
   const { recipeId, steps, ingredients, name, imgURL } = store.recipe.data;
-  const { fetching, fetched, updating, updated, uploading } = store.recipe.meta;
+  const {
+    fetching,
+    fetched,
+    updating,
+    updated,
+    uploading,
+    isEdit
+  } = store.recipe.meta;
   return {
     recipeId,
     steps,
     ingredients,
+    isEdit,
     name,
     imgURL,
     fetching,
@@ -94,7 +104,8 @@ const Recipe = connect(store => {
         updated,
         uploading,
         recipeId,
-        imgURL
+        imgURL,
+        isEdit
       } = this.props;
 
       const ingredients = _.get(this.props, 'ingredients', []);
@@ -109,6 +120,7 @@ const Recipe = connect(store => {
           onChange={e => this.handleIngredientChange(e, i)}
           onDelete={() => this.handleIngredientDelete(i)}
           name={ingredient.name}
+          isEdit={isEdit}
         />
       ));
 
@@ -128,43 +140,47 @@ const Recipe = connect(store => {
 
       if (fetching || updating || uploading) {
         if (fetching) {
-          btnUpdateText = 'fetching';
+          btnUpdateText = 'Fetching';
         } else if (updating) {
-          btnUpdateText = 'updating';
+          btnUpdateText = 'Updating';
         } else if (uploading) {
-          btnUpdateText = 'image uploading';
+          btnUpdateText = 'Image Uploading';
         }
         toggleDisable = true;
         styleBtnUpdateText = 'btn-warning disable';
       } else if (updated) {
-        btnUpdateText = 'update complete';
+        btnUpdateText = 'Update Complete';
         toggleDisable = true;
         styleBtnUpdateText = 'btn-success disable';
         setTimeout(() => {
           this.props.dispatch(reset());
         }, 2000);
       } else {
-        btnUpdateText = 'update';
+        btnUpdateText = 'Update';
         styleBtnUpdateText = 'btn-primary';
       }
 
       return (
         <div className="container">
           <div className="row">
-            <div className="col-sm-8">
+            <div className="col-lg-8">
               <div className="contents">
-                <div className="d-flex justify-content-between">
+                <div className="d-flex">
                   <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="name"
-                      value={name}
-                      onChange={this.handleNameChange}
-                    />
+                    {/* <label htmlFor="name">Name</label> */}
+                    {isEdit ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        value={name}
+                        onChange={this.handleNameChange}
+                      />
+                    ) : (
+                      <h2>{name}</h2>
+                    )}
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label htmlFor="id">Id</label>
                     <input
                       type="text"
@@ -173,57 +189,88 @@ const Recipe = connect(store => {
                       value={recipeId}
                       readOnly
                     />
+                  </div> */}
+                </div>
+                <div className="form-group">
+                  <h4 className="my-4" style={{ color: '#302f87' }}>
+                    Ingredients
+                  </h4>
+                  <div
+                    className="d-flex"
+                    style={{
+                      flexWrap: 'wrap',
+                      justifyContent: 'space-between'
+                    }}>
+                    {ingredientsRow}
+                  </div>
+                  <div className="d-flex justify-content-end">
+                    <button
+                      className="btn "
+                      style={{ padding: '8px 0.5rem 0px 0.5rem' }}
+                      onClick={this.handleAddIngredient}>
+                      <FaPlus />
+                    </button>
                   </div>
                 </div>
                 <div className="form-group">
-                  <p>Ingredients</p>
-                  {ingredientsRow}
-                  <button
-                    className="btn btn-block"
-                    onClick={this.handleAddIngredient}>
-                    Add
-                  </button>
-                </div>
-                <div className="form-group">
-                  <p>Steps</p>
+                  <h4 className="my-4" style={{ color: '#302f87' }}>
+                    Steps
+                  </h4>
                   {stepsRow}
-                  <button
-                    className="btn btn-block"
-                    onClick={this.handleAddStep}>
-                    Add
-                  </button>
+                  <div className="d-flex justify-content-end">
+                    <button
+                      className="btn"
+                      style={{ padding: '8px 0.5rem 0px 0.5rem' }}
+                      onClick={this.handleAddStep}>
+                      <FaPlus />
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="ctrlBtns">
-                <button
-                  disabled={toggleDisable}
-                  className={`btn btn-block ${styleBtnUpdateText}`}
-                  onClick={this.handleUpdateRecipe}>
-                  {btnUpdateText}
-                </button>
               </div>
             </div>
-            <div className="col-sm">
-              {recipeId && (
-                <div>
-                  <Link to={`/recipe/${recipeId}/history`}>
-                    <button className="btn btn-block mb-4">View History</button>
+            <div className="col-lg-4">
+              {/* <div className="mb-4">
+                <button
+                  className="btn btn-block"
+                  onClick={() => this.props.dispatch(changeIsEdit(!isEdit))}>
+                  Edit
+                </button>
+              </div> */}
+              <div className="mb-4 d-flex">
+                <button
+                  disabled={toggleDisable}
+                  className={`btn btn-block ${styleBtnUpdateText} mr-2 `}
+                  onClick={this.handleUpdateRecipe}
+                  style={{ flex: 1 }}>
+                  {btnUpdateText}
+                </button>
+                {recipeId && (
+                  <Link
+                    to={`/recipe/${recipeId}/history`}
+                    className="mr-2"
+                    style={{ flex: 1 }}>
+                    <button className="btn btn-block">View Listing</button>
                   </Link>
-                  <Link to={`/recipe/${recipeId}/history/create`}>
-                    <button className="btn btn-block mb-4">Add History</button>
+                )}
+                {recipeId && (
+                  <Link
+                    to={`/recipe/${recipeId}/history/create`}
+                    className=""
+                    style={{ flex: 1 }}>
+                    <button className="btn btn-block">Add Listing</button>
                   </Link>
-                </div>
-              )}
+                )}
+              </div>
               <form id="imgur">
                 {uploading ? (
                   <label>Uploading</label>
                 ) : (
-                  <label
+                  <button
                     htmlFor="inputRecipeImg"
                     type="button"
-                    className="btn btn-block">
+                    className="btn btn-block mb-4">
                     Select Image
-                  </label>
+                  </button>
                 )}
                 <input
                   style={{ display: 'none' }}
