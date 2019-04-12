@@ -124,3 +124,7 @@ button.input-group-text {
 .remark label {
   width: 120px;
 }
+
+.btn {
+  background-color: rgb(221,221,221);
+}

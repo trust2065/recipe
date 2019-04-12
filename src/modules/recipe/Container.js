@@ -146,7 +146,7 @@ const Recipe = connect(store => {
         } else if (updating) {
           btnUpdateText = 'Saving...';
         } else if (uploading) {
-          btnUpdateText = 'Image Uploading';
+          btnUpdateText = 'Uploading';
         }
         toggleDisable = true;
         styleBtnUpdateText = 'btn-warning disable';
@@ -280,7 +280,12 @@ const Recipe = connect(store => {
               {!imgURL ||
                 (imgURL !== '' && (
                   <div className="d-flex align-items-center justify-content-center position-relative selectImage">
-                    <img className="img-fluid" src={imgURL} alt="img" />
+                    <img
+                      className="img-fluid"
+                      style={{ height: '200px', overflow: 'hidden' }}
+                      src={imgURL}
+                      alt="img"
+                    />
                     <div
                       id="imgur"
                       className="position-absolute selectImageSelector"
