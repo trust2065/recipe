@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import IconTrash from 'react-icons/lib/fa/trash';
+// import IconTrash from 'react-icons/lib/fa/trash';
+import { FaTimes as IconTrash } from 'react-icons/fa';
 import { DraggableImage } from './';
+import { FaRegEdit, FaAlignJustify } from 'react-icons/fa';
 class ImageUploader extends Component {
   render() {
     const {
@@ -16,36 +18,41 @@ class ImageUploader extends Component {
 
     return (
       <div>
-        <form id="formImage">
-          {uploading ? (
-            <label className="btn btn-block mt-2 mb-2">Uploading</label>
-          ) : (
-            <div className="d-flex justify-content-center mt-2 mb-2">
-              <StyledLabel
-                htmlFor={`image_${imgIndex}`}
-                type="button"
-                className="btn">
-                Select Image
-              </StyledLabel>
-              <StyledButton
-                className="btn ml-2"
-                onClick={e => onDelete(e, imgIndex)}>
-                <IconTrash />
-              </StyledButton>
-            </div>
-          )}
-          <input
-            type="file"
-            id={`image_${imgIndex}`}
-            style={{ display: 'none' }}
-            accept="image/*"
-            data-max-size="5000"
-            onChange={onUpload}
-          />
-        </form>
-        {!url ||
-          (url !== '' && (
-            <DraggableImage imgIndex={imgIndex} onSwitch={onSwitch}>
+        <DraggableImage imgIndex={imgIndex} onSwitch={onSwitch}>
+          <form id="formImage">
+            {uploading ? (
+              <label className="btn btn-block mt-2 mb-2">Uploading</label>
+            ) : (
+              <div className="d-flex justify-content-between align-items-center">
+                <div>
+                  <FaAlignJustify />
+                </div>
+                <div className="d-flex justify-content-end my-2 ">
+                  <label
+                    htmlFor={`image_${imgIndex}`}
+                    className="btn labelButton">
+                    <FaRegEdit />
+                  </label>
+                  <button
+                    className="btn ml-2"
+                    style={{ padding: '8px .5rem' }}
+                    onClick={e => onDelete(e, imgIndex)}>
+                    <IconTrash />
+                  </button>
+                </div>
+              </div>
+            )}
+            <input
+              type="file"
+              id={`image_${imgIndex}`}
+              style={{ display: 'none' }}
+              accept="image/*"
+              data-max-size="5000"
+              onChange={onUpload}
+            />
+          </form>
+          {!url ||
+            (url !== '' && (
               <div
                 className="d-flex"
                 style={{
@@ -61,19 +68,11 @@ class ImageUploader extends Component {
                   style={{ height: 'auto', width: '100%' }}
                 />
               </div>
-            </DraggableImage>
-          ))}
+            ))}
+        </DraggableImage>
       </div>
     );
   }
 }
-
-const StyledLabel = styled.label`
-  flex: 3;
-  margin: 0;
-`;
-const StyledButton = styled.button`
-  flex: 1;
-`;
 
 export default ImageUploader;

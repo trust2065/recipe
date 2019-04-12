@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FirebaseActions from '../core/FirebaseAction';
 import { RecipeRow } from './components';
+import { LoadingIndicator } from '../../components';
 import './Home.css';
 import $ from 'jquery';
 import 'datatables.net';
@@ -10,12 +11,13 @@ import '../../any-number.js';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { fetching: true };
   }
 
   componentDidMount() {
     let rows = [];
     FirebaseActions.getOnce('', snapshot => {
+      this.setState({ fetching: false });
       snapshot.forEach(child => {
         let key = child.key;
         let recipe = child.val();
@@ -34,24 +36,31 @@ class Home extends Component {
   }
 
   render() {
-    return (
+    const { fetching } = this.state;
+    console.log(`fetching: ${fetching}`);
+    return fetching ? (
+      <LoadingIndicator />
+    ) : (
       <div className="container">
-        <div className="recipeActions">
-          <Link to="/recipe/new">
-            <button class="btn">Create Recipe</button>
-          </Link>
+        <div>
+          <div className="recipeActions">
+            <Link to="/recipe/new">
+              <button className="btn">Create Recipe</button>
+            </Link>
+          </div>
+          <div className="table-responsive">
+            <table id="recipeTable" className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Name</th>
+                </tr>
+              </thead>
+              <tbody>{this.state.rows}</tbody>
+            </table>
+          </div>
         </div>
-        <div className="table-responsive">
-          <table id="recipeTable" className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Name</th>
-              </tr>
-            </thead>
-            <tbody>{this.state.rows}</tbody>
-          </table>
-        </div>
+        )
       </div>
     );
   }

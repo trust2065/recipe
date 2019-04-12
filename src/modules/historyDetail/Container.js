@@ -2,7 +2,12 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
-import { TextArea, DragDropZone, ImageUploader } from '../../components';
+import {
+  TextArea,
+  DragDropZone,
+  ImageUploader,
+  LoadingIndicator
+} from '../../components';
 import {
   recipeFetch,
   reset,
@@ -19,6 +24,7 @@ import {
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../core/react-datepicker.css';
+import { FaSave, FaPlus } from 'react-icons/fa';
 
 const HistoryCreate = connect(store => {
   const { name, histories, historyId } = store.historyDetail.data;
@@ -27,7 +33,7 @@ const HistoryCreate = connect(store => {
     fetched,
     updating,
     updated,
-    uploadingImgIndexs
+    uploadingImgIndexes
   } = store.historyDetail.meta;
   return {
     name,
@@ -37,7 +43,7 @@ const HistoryCreate = connect(store => {
     fetched,
     updating,
     updated,
-    uploadingImgIndexs
+    uploadingImgIndexes
   };
 })(
   class HistoryCreate extends Component {
@@ -108,8 +114,8 @@ const HistoryCreate = connect(store => {
       const updating = _.get(this.props, 'updating', false);
       const updated = _.get(this.props, 'updated', false);
 
-      const uploadingImgIndexs = _.get(this.props, 'uploadingImgIndexs', {});
-      const hasImageUploading = !_.isEqual(uploadingImgIndexs, {});
+      const uploadingImgIndexes = _.get(this.props, 'uploadingImgIndexes', {});
+      const hasImageUploading = !_.isEqual(uploadingImgIndexes, {});
 
       let styleBtnUpdateText;
       let toggleDisable = false;
@@ -126,24 +132,24 @@ const HistoryCreate = connect(store => {
 
       if (fetching || updating || hasImageUploading) {
         if (fetching) {
-          btnUpdateText = 'fetching';
+          btnUpdateText = 'Fetching';
         } else if (updating) {
-          btnUpdateText = 'updating';
+          btnUpdateText = 'Updating';
         } else if (hasImageUploading) {
-          btnUpdateText = 'image uploading';
+          btnUpdateText = 'Image Uploading';
         }
         toggleDisable = true;
         styleBtnUpdateText = 'btn-warning disable';
       } else if (updated) {
-        btnUpdateText = 'update complete';
+        btnUpdateText = 'Save Complete';
         toggleDisable = true;
         styleBtnUpdateText = 'btn-success disable';
         setTimeout(() => {
           this.props.dispatch(reset());
         }, 2000);
       } else {
-        btnUpdateText = 'update';
-        styleBtnUpdateText = 'btn-primary';
+        btnUpdateText = 'Save';
+        styleBtnUpdateText = 'btn-origin';
       }
 
       const hasDate = !!_.get(history, 'date');
@@ -160,13 +166,11 @@ const HistoryCreate = connect(store => {
           const imgIndex = _.findIndex(images, ['no', no]);
           const url = image.url;
           imageUploaders.push(
-            <div
-              key={`imageUploader_${no}`}
-              className="col-sm-4">
+            <div key={`imageUploader_${no}`} className="col-sm-4">
               <ImageUploader
                 imgIndex={imgIndex}
                 url={url}
-                uploading={uploadingImgIndexs[imgIndex]}
+                uploading={uploadingImgIndexes[imgIndex]}
                 onUpload={e => this.handleImageUpload(e, imgIndex)}
                 onDelete={this.handleImageDelete}
                 onSwitch={this.handleSwitch}
@@ -175,31 +179,29 @@ const HistoryCreate = connect(store => {
           );
         });
 
-      return (
+      return fetching ? (
+        <LoadingIndicator />
+      ) : (
         <div className="container">
           <div className="row">
-            <div className="col-sm-4 ml-auto">
-              <button
-                disabled={toggleDisable}
-                className={`btn btn-block ${styleBtnUpdateText}`}
-                onClick={this.handleHistoryUpdate}>
-                {btnUpdateText}
-              </button>
+            <div className="col-sm-12">
+              <div className="d-flex justify-content-between">
+                <h2>{name}</h2>
+                <button
+                  disabled={toggleDisable}
+                  style={{ maxWidth: '150px' }}
+                  className={`btn btn-block ${styleBtnUpdateText}`}
+                  onClick={this.handleHistoryUpdate}>
+                  <FaSave /> {btnUpdateText}
+                </button>
+              </div>
+              <hr />
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-4">
             <div className="col-sm-6">
               <div>
-                <label htmlFor="name">Name</label>
-                <input
-                  disabled
-                  type="text"
-                  value={name}
-                  className="form-control"
-                />
-              </div>
-              <div>
-                <label htmlFor="date">Date</label>
+                <h4 htmlFor="date">Date</h4>
                 <DatePicker
                   dateFormat="DD/MM/YYYY"
                   selected={date}
@@ -209,7 +211,7 @@ const HistoryCreate = connect(store => {
             </div>
             <div className="col-sm-6">
               <div className="mt-2">
-                <label htmlFor="remark">Remark</label>
+                <h4 htmlFor="remark">Remark</h4>
                 <TextArea
                   className="form-control"
                   rows="5"
@@ -226,10 +228,10 @@ const HistoryCreate = connect(store => {
               <button
                 className="btn bnt-block"
                 onClick={this.handleImageUploaderAdd}>
-                Add Image
+                <FaPlus /> Image
               </button>
             </div>
-          </div> 
+          </div>
           <div className="row mt-5">
             <DragDropZone>{imageUploaders}</DragDropZone>
           </div>

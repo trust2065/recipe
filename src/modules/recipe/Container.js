@@ -2,6 +2,7 @@ import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import { Ingredient, Step } from './components';
+import { LoadingIndicator } from '../../components';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -18,7 +19,7 @@ import {
   recipeUpdate,
   reset
 } from './reducer';
-import { FaPlus } from 'react-icons/fa';
+import { FaSave, FaPlus, FaRegEdit, FaClipboardList } from 'react-icons/fa';
 
 // let recipeId;
 const Recipe = connect(store => {
@@ -91,6 +92,7 @@ const Recipe = connect(store => {
     };
 
     handleImageUpload = e => {
+      console.log('handleImageUpload');
       this.props.dispatch(imgUpload(e));
     };
 
@@ -142,25 +144,27 @@ const Recipe = connect(store => {
         if (fetching) {
           btnUpdateText = 'Fetching';
         } else if (updating) {
-          btnUpdateText = 'Updating';
+          btnUpdateText = 'Saving...';
         } else if (uploading) {
           btnUpdateText = 'Image Uploading';
         }
         toggleDisable = true;
         styleBtnUpdateText = 'btn-warning disable';
       } else if (updated) {
-        btnUpdateText = 'Update Complete';
+        btnUpdateText = 'Saved';
         toggleDisable = true;
         styleBtnUpdateText = 'btn-success disable';
         setTimeout(() => {
           this.props.dispatch(reset());
         }, 2000);
       } else {
-        btnUpdateText = 'Update';
-        styleBtnUpdateText = 'btn-primary';
+        btnUpdateText = 'Save';
+        styleBtnUpdateText = 'btn-origin';
       }
 
-      return (
+      return fetching ? (
+        <LoadingIndicator />
+      ) : (
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
@@ -192,9 +196,10 @@ const Recipe = connect(store => {
                   </div> */}
                 </div>
                 <div className="form-group">
-                  <h4 className="my-4" style={{ color: '#302f87' }}>
+                  <h4 className="mt-4" style={{ color: '#302f87' }}>
                     Ingredients
                   </h4>
+                  <hr />
                   <div
                     className="d-flex"
                     style={{
@@ -203,7 +208,7 @@ const Recipe = connect(store => {
                     }}>
                     {ingredientsRow}
                   </div>
-                  <div className="d-flex justify-content-end">
+                  <div className="d-flex justify-content-start">
                     <button
                       className="btn "
                       style={{ padding: '8px 0.5rem 0px 0.5rem' }}
@@ -213,11 +218,12 @@ const Recipe = connect(store => {
                   </div>
                 </div>
                 <div className="form-group">
-                  <h4 className="my-4" style={{ color: '#302f87' }}>
+                  <h4 className="mt-4" style={{ color: '#302f87' }}>
                     Steps
                   </h4>
+                  <hr />
                   {stepsRow}
-                  <div className="d-flex justify-content-end">
+                  <div className="d-flex justify-content-start">
                     <button
                       className="btn"
                       style={{ padding: '8px 0.5rem 0px 0.5rem' }}
@@ -242,14 +248,22 @@ const Recipe = connect(store => {
                   className={`btn btn-block ${styleBtnUpdateText} mr-2 `}
                   onClick={this.handleUpdateRecipe}
                   style={{ flex: 1 }}>
-                  {btnUpdateText}
+                  {fetching ? (
+                    btnUpdateText
+                  ) : (
+                    <div>
+                      <FaSave /> {btnUpdateText}
+                    </div>
+                  )}
                 </button>
                 {recipeId && (
                   <Link
                     to={`/recipe/${recipeId}/history`}
                     className="mr-2"
                     style={{ flex: 1 }}>
-                    <button className="btn btn-block">View Listing</button>
+                    <button className="btn btn-block">
+                      <FaClipboardList /> Listings
+                    </button>
                   </Link>
                 )}
                 {recipeId && (
@@ -257,34 +271,35 @@ const Recipe = connect(store => {
                     to={`/recipe/${recipeId}/history/create`}
                     className=""
                     style={{ flex: 1 }}>
-                    <button className="btn btn-block">Add Listing</button>
+                    <button className="btn btn-block">
+                      <FaPlus /> Listing
+                    </button>
                   </Link>
                 )}
               </div>
-              <form id="imgur">
-                {uploading ? (
-                  <label>Uploading</label>
-                ) : (
-                  <button
-                    htmlFor="inputRecipeImg"
-                    type="button"
-                    className="btn btn-block mb-4">
-                    Select Image
-                  </button>
-                )}
-                <input
-                  style={{ display: 'none' }}
-                  id="inputRecipeImg"
-                  type="file"
-                  accept="image/*"
-                  data-max-size="5000"
-                  onChange={this.handleImageUpload}
-                />
-              </form>
               {!imgURL ||
                 (imgURL !== '' && (
-                  <div className="d-flex align-items-center justify-content-center">
+                  <div className="d-flex align-items-center justify-content-center position-relative selectImage">
                     <img className="img-fluid" src={imgURL} alt="img" />
+                    <div
+                      id="imgur"
+                      className="position-absolute selectImageSelector"
+                      style={{ left: 0, top: 0 }}>
+                      <label
+                        htmlFor="inputRecipeImg"
+                        className="btn btn-block mb-4 labelButton"
+                        disabled={updating}>
+                        <FaRegEdit />
+                      </label>
+                      <input
+                        style={{ display: 'none' }}
+                        id="inputRecipeImg"
+                        type="file"
+                        accept="image/*"
+                        data-max-size="5000"
+                        onChange={this.handleImageUpload}
+                      />
+                    </div>
                   </div>
                 ))}
             </div>

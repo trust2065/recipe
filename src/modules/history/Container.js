@@ -1,15 +1,18 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { HistoryBox } from '../../components';
+import { HistoryBox, LoadingIndicator } from '../../components';
 import { recipeFetch } from './reducer';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
 
 const History = connect(store => {
   const { histories, recipeId, name } = store.history.data;
+  const { fetching } = store.history.meta;
   return {
-    histories,
     recipeId,
+    fetching,
+    histories,
     name
   };
 })(
@@ -33,11 +36,14 @@ const History = connect(store => {
       const recipeId = _.get(this.props, 'recipeId', 0);
       const name = _.get(this.props, 'name', '');
       const showRemark = _.get(this.state, 'showRemark', true);
+      const { fetching } = this.props;
 
       const historyBoxes = [];
 
       histories &&
         histories.forEach((history, i) => {
+          const date = new Date(history.date);
+          const fullDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
           historyBoxes.push(
             <div key={`historyImage_${i}`} className="col-sm-4">
               <HistoryBox
@@ -45,43 +51,44 @@ const History = connect(store => {
                 historyId={history.id}
                 images={history.images}
                 remark={history.remark}
-                date={history.date}
+                date={fullDate}
                 showRemark={showRemark}
               />
             </div>
           );
         });
 
-      return (
+      return fetching ? (
+        <LoadingIndicator />
+      ) : (
         <div className="container">
           <div className="row">
             <div className="col-sm-6">
               <div>
-                <label htmlFor="name">Name</label>
-                <input
-                  disabled
-                  type="text"
-                  value={name}
-                  className="form-control"
-                />
+                <h2>{name}</h2>
               </div>
             </div>
-            <div className="col-sm-4 ml-auto">
-              <div className="form-check float-right">
+            <div className="col-sm-4 ml-auto d-flex flex-column align-items-end">
+              <div className="form-check my-2 remark">
                 <input
                   type="checkbox"
-                  className="form-check-input"
+                  className="d-none"
                   id="showRemark"
                   onChange={this.onShowRemarkChange}
                   checked={showRemark}
                 />
-                <label className="form-check-label" htmlFor="showRemark">
-                  Show remark
+                <label
+                  className="btn labelButton"
+                  htmlFor="showRemark"
+                  style={{ width: '150px' }}>
+                  {showRemark ? 'Hide' : 'Show'} Remark
                 </label>
               </div>
               {recipeId && (
                 <Link to={`/recipe/${recipeId}/history/create`}>
-                  <button className="btn btn-block mt-5">Add History</button>
+                  <button className="btn btn-block" style={{ width: '150px' }}>
+                    <FaPlus /> Listing
+                  </button>
                 </Link>
               )}
             </div>

@@ -9,12 +9,12 @@ input.form-control {
 }
 .disable
 {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .disable > * 
 {
-    pointer-events:none;
+  pointer-events:none;
 }
 
 .imageBox {
@@ -31,10 +31,10 @@ input.form-control {
 }
 
 .imageBox_btn__left {
- left: 0; 
+  left: 0; 
 }
 .imageBox_btn__right {
- right: 0; 
+  right: 0; 
 }
 
 .container {
@@ -89,9 +89,38 @@ input.form-control {
   padding-left: 5px;
 }
 
+.table tr {
+  line-height: 18px;
+}
+
 .btn {
   padding: 5px;
   font-weight: bold;
   border-radius: 5px;
   box-shadow: 3px 3px #ccc;
+}
+
+
+button.input-group-text {
+  padding: 8px .5rem;
+}
+
+.labelButton {
+  background-color: rgb(221,221,221);
+  margin-bottom: 0;
+  padding: 8px .5rem;
+}
+
+.selectImage .selectImageSelector {
+  display: none;
+}
+
+.selectImage:hover .selectImageSelector {
+  display: block;
+}
+.btn-origin {
+  background: #c4d9ee;
+}
+.remark label {
+  width: 120px;
 }
