@@ -189,7 +189,7 @@ const HistoryCreate = connect(store => {
                 <h2>{name}</h2>
                 <button
                   disabled={toggleDisable}
-                  style={{ maxWidth: '150px' }}
+                  style={{ maxWidth: '160px' }}
                   className={`btn btn-block ${styleBtnUpdateText}`}
                   onClick={this.handleHistoryUpdate}>
                   <FaSave /> {btnUpdateText}

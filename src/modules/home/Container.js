@@ -60,7 +60,6 @@ class Home extends Component {
             </table>
           </div>
         </div>
-        )
       </div>
     );
   }

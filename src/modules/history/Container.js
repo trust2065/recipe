@@ -80,13 +80,13 @@ const History = connect(store => {
                 <label
                   className="btn labelButton"
                   htmlFor="showRemark"
-                  style={{ width: '150px' }}>
+                  style={{ width: '160px' }}>
                   {showRemark ? 'Hide' : 'Show'} Remark
                 </label>
               </div>
               {recipeId && (
                 <Link to={`/recipe/${recipeId}/history/create`}>
-                  <button className="btn btn-block" style={{ width: '150px' }}>
+                  <button className="btn btn-block" style={{ width: '160px' }}>
                     <FaPlus /> Listing
                   </button>
                 </Link>
