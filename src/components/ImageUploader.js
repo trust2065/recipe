@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 // import IconTrash from 'react-icons/lib/fa/trash';
 import { FaTimes as IconTrash } from 'react-icons/fa';
 import { DraggableImage } from './';

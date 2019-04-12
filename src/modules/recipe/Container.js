@@ -6,7 +6,7 @@ import { LoadingIndicator } from '../../components';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  changeIsEdit,
+  // changeIsEdit,
   imgUpload,
   ingredientAdd,
   ingredientChange,

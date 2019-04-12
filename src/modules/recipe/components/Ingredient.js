@@ -6,11 +6,11 @@ import { FaTimes } from 'react-icons/fa';
 
 class Ingredient extends Component {
   static propTypes = {
-    name: PropTypes.string,
-    isEdit: PropTypes.bool
+    name: PropTypes.string
+    // isEdit: PropTypes.bool
   };
   render() {
-    const { isEdit, name } = this.props;
+    const { name } = this.props;
     return (
       <div
         className="input-group mb-3"
