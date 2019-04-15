@@ -7,6 +7,7 @@ import './Home.css';
 import $ from 'jquery';
 import 'datatables.net';
 import '../../any-number.js';
+import { FaPlus } from 'react-icons/fa';
 
 class Home extends Component {
   constructor(props) {
@@ -41,11 +42,13 @@ class Home extends Component {
     return fetching ? (
       <LoadingIndicator />
     ) : (
-      <div className="container">
+      <div className="container recipeList">
         <div>
           <div className="recipeActions">
             <Link to="/recipe/new">
-              <button className="btn">Create Recipe</button>
+              <button className="btn">
+                <FaPlus /> <span>Recipe</span>
+              </button>
             </Link>
           </div>
           <div className="table-responsive">

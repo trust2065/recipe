@@ -65,12 +65,7 @@ class ImageUploader extends Component {
                     justifyContent: 'center',
                     alignItems: 'center'
                   }}>
-                  <img
-                    className="img-fluid"
-                    src={url}
-                    alt="img"
-                    style={{ height: 'auto', width: '100%' }}
-                  />
+                  <img className="img-fluid" src={url} alt="img" />
                 </div>
               ) : (
                 <div

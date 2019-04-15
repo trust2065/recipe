@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import { Ingredient, Step } from './components';
 import { LoadingIndicator } from '../../components';
@@ -252,7 +251,7 @@ const Recipe = connect(store => {
                     btnUpdateText
                   ) : (
                     <div>
-                      <FaSave /> {btnUpdateText}
+                      <FaSave /> <span>{btnUpdateText}</span>
                     </div>
                   )}
                 </button>
@@ -262,7 +261,7 @@ const Recipe = connect(store => {
                     className="mr-2"
                     style={{ flex: 1 }}>
                     <button className="btn btn-block">
-                      <FaClipboardList /> Listings
+                      <FaClipboardList /> <span>Listings</span>
                     </button>
                   </Link>
                 )}
@@ -272,7 +271,7 @@ const Recipe = connect(store => {
                     className=""
                     style={{ flex: 1 }}>
                     <button className="btn btn-block">
-                      <FaPlus /> Listing
+                      <FaPlus /> <span>Listing</span>
                     </button>
                   </Link>
                 )}

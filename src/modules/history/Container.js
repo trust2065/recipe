@@ -87,7 +87,7 @@ const History = connect(store => {
               {recipeId && (
                 <Link to={`/recipe/${recipeId}/history/create`}>
                   <button className="btn btn-block" style={{ width: '160px' }}>
-                    <FaPlus /> Listing
+                    <FaPlus /> <span>Listing</span>
                   </button>
                 </Link>
               )}

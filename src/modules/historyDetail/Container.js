@@ -192,7 +192,7 @@ const HistoryCreate = connect(store => {
                   style={{ maxWidth: '160px' }}
                   className={`btn btn-block ${styleBtnUpdateText}`}
                   onClick={this.handleHistoryUpdate}>
-                  <FaSave /> {btnUpdateText}
+                  <FaSave /> <span>{btnUpdateText}</span>
                 </button>
               </div>
               <hr />
@@ -226,13 +226,13 @@ const HistoryCreate = connect(store => {
           <div className="row">
             <div className="col-sm-4 mr-auto">
               <button
-                className="btn bnt-block"
+                className="btn mt-3"
                 onClick={this.handleImageUploaderAdd}>
                 <FaPlus /> Image
               </button>
             </div>
           </div>
-          <div className="row mt-5">
+          <div className="row mt-3">
             <DragDropZone>{imageUploaders}</DragDropZone>
           </div>
         </div>

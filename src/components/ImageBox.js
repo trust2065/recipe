@@ -72,12 +72,7 @@ export default class ImageBox extends Component {
         <div
           className="row mt-2 d-flex align-items-center justify-content-center imageBox_image"
           style={{ height: '200px', overflow: 'hidden' }}>
-          <img
-            style={{ height: 'auto', width: '100%' }}
-            className="img-fluid"
-            src={url}
-            alt="record"
-          />
+          <img className="img-fluid" src={url} alt="record" />
           <button
             disabled={!hasLeftImage}
             className="btn mr-auto imageBox_btn imageBox_btn__left"

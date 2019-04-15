@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './modules/home';
 import Recipe from './modules/recipe';
 import History from './modules/history';

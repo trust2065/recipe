@@ -18,7 +18,7 @@ input.form-control {
 }
 
 .imageBox {
-  height: 400px;
+  min-height: 250px;
 }
 
 .imageBox_image {
@@ -53,18 +53,18 @@ input.form-control {
 }
 
 .dataTables_length {
-  text-align: right
+  text-align: right;
+  margin-top: 5px;
 }
 
 .recipeActions {
   position: absolute;
-  top: 7rem;
+  top: 0rem;
 }
 .recipeActions button {
-  padding: 10px;
+  padding: 5px;
   font-weight: bold;
   border-radius: 5px;
-  text-shadow: 5px;
 }
 #recipeTable_paginate {
   text-align: center;
@@ -98,6 +98,14 @@ input.form-control {
   font-weight: bold;
   border-radius: 5px;
   box-shadow: 3px 3px #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(221,221,221);
+}
+
+.btn :not(:first-child) {
+  margin-left: 5px;
 }
 
 
@@ -125,6 +133,43 @@ button.input-group-text {
   width: 120px;
 }
 
-.btn {
-  background-color: rgb(221,221,221);
+.dataTables_filter {
+  margin-top: 5px;
+}
+
+.navbar-brand {
+  margin: 0;
+}
+
+.navbar-brand h1 {
+  margin-bottom: 0;
+}
+
+.navbar {
+  margin: -8px -47px 0 -47px;
+  padding: 0 !important;
+  font-style: italic;
+}
+
+@media only screen and (max-width: 769px) {
+  .navbar {
+    margin: -8px -39px 0 -39px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .navbar {
+    margin: -8px -15px 0 -15px;
+  }
+  .navbar-brand h1 {
+    font-size: 1.8rem;
+  }
+}
+
+.recipeList {
+  position: relative;
+}
+
+h4 {
+  font-size: 1.2rem;
 }
