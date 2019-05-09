@@ -146,9 +146,7 @@ button.input-group-text {
 }
 
 .navbar {
-  margin: -8px -47px 0 -47px;
-  padding: 0 !important;
-  font-style: italic;
+  padding-top: 1rem;
 }
 
 @media only screen and (max-width: 769px) {
@@ -172,4 +170,12 @@ button.input-group-text {
 
 h4 {
   font-size: 1.2rem;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
 }

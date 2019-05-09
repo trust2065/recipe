@@ -15,6 +15,7 @@ a:hover {
   justify-content: center;
 }
 .navbar-brand h1 {
+  font-family: Montserrat,Georgia,serif;
   font-weight: bolder;
   color: #eee;
 }

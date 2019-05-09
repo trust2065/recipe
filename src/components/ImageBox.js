@@ -75,13 +75,17 @@ export default class ImageBox extends Component {
           <img className="img-fluid" src={url} alt="record" />
           <button
             disabled={!hasLeftImage}
-            className="btn mr-auto imageBox_btn imageBox_btn__left"
+            className={`btn mr-auto imageBox_btn imageBox_btn__left ${
+              hasLeftImage ? '' : 'hidden'
+            }`}
             onClick={() => this.onImageIndexChange(left)}>
             &#8592;
           </button>
           <button
             disabled={!hasRightImage}
-            className="btn ml-auto imageBox_btn imageBox_btn__right"
+            className={`btn ml-auto imageBox_btn imageBox_btn__right ${
+              hasRightImage ? '' : 'hidden'
+            }`}
             onClick={() => this.onImageIndexChange(right)}>
             &#8594;
           </button>
